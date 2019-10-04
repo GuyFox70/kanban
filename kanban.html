@@ -129,21 +129,17 @@
 					column.lastElementChild.previousElementSibling.classList.remove('hideElement');
 				}
 			}
-			//functions
-			//function create card
 			function createCard(parent, text) {
 				let p_viewCard = document.createElement('p');
 					p_viewCard.className = 'viewCard';
 					p_viewCard.innerHTML = text.value;
 				parent.appendChild(p_viewCard);
 			}
-			//function create wrapper cards
 			function createWrapperForCards(parent) {
 				let div = document.createElement('div');
 					div.className = 'cards';
 				parent.appendChild(div);
 			}
-			//function create name of card and name of column
 			function createForm(parent,elemForEnter,elemForEnterClass,elemForEnterText,buttonElem,buttonAddClass,buttonAddText,buttonCloseClass,buttonCloseText){
 				let form = document.createElement('div');
 					form.className = 'addNameCard';
@@ -169,14 +165,12 @@
 						form.appendChild(divMain);
 				parent.appendChild(form);
 			}
-			//function create header
 			function createHeader(text, parent) {			
 				let h3 = document.createElement('h3');
 					h3.className = 'headerColumn';
 					h3.innerHTML = text;
 				parent.appendChild(h3);
 			}
-			//function create column
 			function createColumn(parent) {
 
 				let div_column = document.createElement('div');
@@ -185,7 +179,6 @@
 
 					createElementWithClassAddColumn(div_column, 'Добавить ещё одну колонку', 'addColumn');
 			}
-			//function create elements class AddColumn
 			function createElementWithClassAddColumn(parent, text, nameClass) {
 				let div_addColumn = document.createElement('div');
 					div_addColumn.className = nameClass;
