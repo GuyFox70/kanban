@@ -1,0 +1,160 @@
+body{
+	background: black;
+	cursor: pointer;
+	overflow: hidden;
+	background: rgb(58, 57, 56);
+}
+#wrapper{
+	width: 90%;
+	height: 608px;
+	margin: auto;
+	background: url(image/portal.jpg);
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding: 10px;
+	box-sizing: border-box;
+}
+#wrapper_two{
+	display: inline-flex;
+	flex-wrap: nowrap;
+	outline: none;
+	box-sizing: border-box;
+	user-select: none;
+}
+.column{
+	width: 285px;
+	height: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	background: rgba(223, 227, 230, 0.7); 
+	border-radius: 5px;
+}
+.column:not(:last-child){
+	margin-right: 15px;
+}
+.addColumn, .addCard{
+	font-size: 18px;
+	color: rgb(107, 128, 140);
+	user-select: none;
+
+	position: relative;
+	top: 0px;
+	left: 0px;
+}
+	.addCard{
+		margin: 10px 0px 0px 0px;
+	}
+	.addColumn:hover,
+	.addCard:hover{
+		color: red;
+	}
+.plus{
+	font-size: 35px;
+	line-height: 2px;
+	vertical-align: middle;
+	margin: 0px 5px 0px 5px;
+}
+.nameColumn{
+	resize: none;
+	width: 98%;
+	height: 35px;
+	border: none;
+	border-radius: 5px;
+	padding: 0px 0px 0px 10px;
+	box-sizing: border-box;
+	outline: none;
+}
+	.nameColumn::placeholder, 
+	.nameColumn{
+		font-size: 15px;
+	}
+.textCard{
+	resize: none;
+	width: 99.5%;
+	height: 70px;
+	border: none;
+	border-radius: 3px;
+	padding: 5px;
+	box-sizing: border-box;
+	outline: none;
+}
+	.textCard::placeholder, 
+	.textCard{
+		font-size: 15px;
+	}
+.buttons{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.buttonAddColumn, .buttonAddCard{
+	width: 140px;
+	height: 30px;
+	background: rgb(35, 221, 106);
+	color: white;
+	margin-top: 5px;
+	padding: 0px 0px 0px 7px;
+	line-height: 28px;
+	box-sizing: border-box;
+	border-radius: 5px;
+}
+	.buttonAddColumn:hover{
+		cursor: pointer;
+	}
+.buttonClose, .buttonCloseCard{
+	font-size: 30px;
+	line-height: 0px;
+}
+.headerColumn{
+	margin: 0px 0px 0px 0px;
+	word-wrap: break-word;
+	padding: 0px 0px 10px 0px;
+	box-sizing: border-box;
+}
+.hideElement{
+	display: none;
+}
+.viewCard{
+	width: 98%;
+	background: white;
+	padding: 5px 10px 5px 10px;
+	box-sizing: border-box;
+	border-radius: 3px;
+	line-height: 20px;
+	box-shadow: 5px 5px 5px rgba(65,60,60,0.5);
+	text-align: left;
+	word-wrap: break-word;
+	white-space: pre-wrap;
+}
+.empty{
+	background: rgb(145, 141, 138);
+	color: rgb(145, 141, 138);
+	padding: 5px 10px 5px 10px;
+	box-sizing: border-box;
+	border-radius: 3px;
+	line-height: 20px;
+	box-shadow: inset 1px 1px 8px rgba(65,60,60,0.5),
+				inset -1px -1px 8px rgba(65,60,60,0.5);
+}
+.viewCard, .empty{
+	margin-right: 0px;
+	margin-top: 0px;
+}
+.addNameCard{
+	margin-top: 6px;
+}
+.cards::-webkit-scrollbar {
+    width: 5px;
+}
+ 
+.cards::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 12px rgba(100,98,97,0.2); 
+    background: white;
+    border-radius: 10px;
+}
+ 
+.cards::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: white;
+    -webkit-box-shadow: inset 0 0 20px rgba(0,0,0,0.7); 
+}

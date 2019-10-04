@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>My first kanban</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="kanban.css">
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="wrapper_two" contentEditable = "false">
+				<div class="column">
+					<div class="addColumn">
+						<span class="plus">&plus;</span>
+						Добавить ещё одну колонку
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+		(function(){
+
+			let wrapper = document.getElementById('wrapper');
+			let wrapper_two = document.querySelector('#wrapper_two');
+
+			wrapper_two.addEventListener('click', addStillOneColumn);
+
+			function addStillOneColumn(event){
+				let target = event.target;
+
+				if (target.className == 'addColumn'){
+					
+					let column = target.parentElement;
+
+					createColumn(target.parentElement.parentElement);
+
+					createForm(column,'input','nameColumn','Введите название колонки','div','buttonAddColumn','Добавить колонку','buttonClose','&times;');
+
+					column.removeChild(target);
+
+				}else if (target.className == 'buttonAddColumn'){
+
+					let column = target.parentElement.parentElement.parentElement
+						column.removeChild(column.firstElementChild);
+					let nameColumn = target.parentElement.previousElementSibling.value;
+
+					createHeader(nameColumn, column);
+					createWrapperForCards(column);
+					createElementWithClassAddColumn(column, 'Добавить ещё одну карточку', 'addCard');
+
+				}else if (target.className == 'addCard'){
+
+					let column = target.parentElement;
+
+					if (column.lastElementChild.className == 'addNameCard hideElement'){
+						
+						column.lastElementChild.classList.remove('hideElement');
+						column.lastElementChild.previousElementSibling.classList.add('hideElement');
+						column.lastElementChild.firstElementChild.value = '';
+
+					}else{
+
+						createForm(column,'textarea','textCard','Введите название карточки','div','buttonAddCard','Добавить карточку','buttonCloseCard','&times;');
+					}
+
+					column.lastElementChild.previousElementSibling.classList.add('hideElement');
+
+					let styleColumn = getComputedStyle(column);
+
+					let styleWrapper = getComputedStyle(wrapper);
+
+					if (parseInt(styleColumn.height) > parseInt(styleWrapper.height)){
+						let cards = target.previousElementSibling;
+
+						cards.style.height = '425px';
+						cards.style.overflowY = 'auto';
+						cards.scrollTop = cards.offsetHeight;  
+						cards.style.overflowY = 'hidden';
+
+						cards.addEventListener('mouseover', function showScroll(){
+							cards.style.overflowY = 'auto';
+						});
+
+						cards.addEventListener('mouseout', function hiddeScroll(){
+							cards.style.overflowY = 'hidden';
+						});
+
+					}
+
+				}else if (target.className == 'buttonAddCard'){
+
+					let column = target.parentElement.parentElement.parentElement;
+
+					let parent = target.parentElement.parentElement.previousElementSibling.previousElementSibling;
+
+					let text = target.parentElement.parentElement.firstElementChild;
+					let before = target.parentElement.parentElement;
+
+					createCard(parent, text);
+
+					column.lastElementChild.previousElementSibling.classList.remove('hideElement');
+					column.lastElementChild.classList.add('hideElement');
+
+					let cards = target.parentElement.parentElement.previousElementSibling.previousElementSibling;
+
+					if (parseInt(cards.style.height) == 425){
+
+						cards.style.height = '508px';
+						cards.style.overflowY = 'auto';
+						cards.scrollTop = cards.offsetHeight;
+						cards.style.overflowY = 'hidden';
+
+					}
+
+				}else if (target.className == 'buttonClose'){
+
+					let column = target.parentElement.parentElement.parentElement;
+					
+					column.innerHTML = '';
+					
+					createElementWithClassAddColumn(column, 'Добавить ещё одну колонку', 'addColumn');
+					column.parentElement.removeChild(column.parentElement.lastElementChild);
+
+				}else if (target.className == 'buttonCloseCard'){
+
+					let column = target.parentElement.parentElement.parentElement;
+
+					column.lastElementChild.classList.add('hideElement');
+					column.lastElementChild.previousElementSibling.classList.remove('hideElement');
+				}
+			}
+			//functions
+			//function create card
+			function createCard(parent, text) {
+				let p_viewCard = document.createElement('p');
+					p_viewCard.className = 'viewCard';
+					p_viewCard.innerHTML = text.value;
+				parent.appendChild(p_viewCard);
+			}
+			//function create wrapper cards
+			function createWrapperForCards(parent) {
+				let div = document.createElement('div');
+					div.className = 'cards';
+				parent.appendChild(div);
+			}
+			//function create name of card and name of column
+			function createForm(parent,elemForEnter,elemForEnterClass,elemForEnterText,buttonElem,buttonAddClass,buttonAddText,buttonCloseClass,buttonCloseText){
+				let form = document.createElement('div');
+					form.className = 'addNameCard';
+
+					let elem = document.createElement(elemForEnter);
+						elem.className = elemForEnterClass;
+						elem.placeholder = elemForEnterText;
+					form.appendChild(elem);
+
+					let divMain = document.createElement('div');
+						divMain.className = 'buttons';
+
+							let buttonAdd = document.createElement(buttonElem);
+								buttonAdd.className = buttonAddClass;
+								buttonAdd.innerHTML = buttonAddText;
+							divMain.appendChild(buttonAdd);
+
+							let buttonClose = document.createElement(buttonElem);
+								buttonClose.className = buttonCloseClass;
+								buttonClose.innerHTML = buttonCloseText;
+							divMain.appendChild(buttonClose);
+
+						form.appendChild(divMain);
+				parent.appendChild(form);
+			}
+			//function create header
+			function createHeader(text, parent) {			
+				let h3 = document.createElement('h3');
+					h3.className = 'headerColumn';
+					h3.innerHTML = text;
+				parent.appendChild(h3);
+			}
+			//function create column
+			function createColumn(parent) {
+
+				let div_column = document.createElement('div');
+					div_column.className = 'column';
+					parent.appendChild(div_column);
+
+					createElementWithClassAddColumn(div_column, 'Добавить ещё одну колонку', 'addColumn');
+			}
+			//function create elements class AddColumn
+			function createElementWithClassAddColumn(parent, text, nameClass) {
+				let div_addColumn = document.createElement('div');
+					div_addColumn.className = nameClass;
+					div_addColumn.innerHTML = '<span class="plus">&plus;</span>' + text;
+
+					parent.appendChild(div_addColumn);
+			}
+			//save code html
+			/*window.addEventListener('DOMContentLoaded', function(){
+				if (localStorage.length != 0) {
+					wrapper_two.innerHTML = localStorage.getItem('content_wrapper_two');
+				}
+			});
+
+			window.addEventListener('beforeunload', function(){
+				localStorage.setItem('content_wrapper_two', wrapper_two.innerHTML);
+			});*/
+
+			//localStorage.clear();
+			//console.log(localStorage.getItem('content_wrapper_two'));
+		}());
+		</script>
+		<script src="dragDropForKanban.js"></script>
+		<!-- <script src="dragDropForKanban2.js"></script> -->
+	</body>
+</html>
